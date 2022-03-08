@@ -1,0 +1,62 @@
+// set as java application
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+   // https://mvnrepository.com/artifact/org.json/json
+compile group: 'org.json', name: 'json', version: '20200518'
+}
+
+//define main class
+mainClassName = 'NodeStarter'
+
+task Client(type: JavaExec) {
+  group 'simple'
+  description 'Base sample'
+
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'Leader.Client'
+  standardInput = System.in
+
+  args 8000
+  args "localhost"
+}
+
+task TC(type: JavaExec) {
+  group 'simple'
+  description 'Base sample'
+
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'Leader.Branch'
+  standardInput = System.in
+  args 8000
+  args 8001
+  args 9000
+}
+
+task node1(type: JavaExec) {
+  group 'simple'
+  description 'Base sample'
+
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'Leader.Tipper'
+  standardInput = System.in
+  args 8001
+}
+
+task node2(type: JavaExec) {
+  group 'simple'
+  description 'Base sample'
+
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'Leader.Tipper'
+  standardInput = System.in
+  args 9000
+}
